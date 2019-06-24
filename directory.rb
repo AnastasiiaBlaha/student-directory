@@ -1,3 +1,5 @@
+@students = []
+
 students = [
   {name: "Dr. Hannibal Lecter", cohort: :november},
   {name: "Darth Vader", cohort: :november},
@@ -13,24 +15,22 @@ students = [
 ]
 
 def interactive_menu
-  students = []
   loop do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
-    selection = gets.chomp
-    case selection
+    print_menu
+    process(gets.chomp)
+  end
+end
+
+def process(selection)
+  case selection
     when "1"
-      students = input_students
+      input_students
     when "2"
-      print_header
-      print(students)
-      print_footer(students)
+      show_students
     when "9"
       exit
     else
-      puts "I don't know what you meant, try again"
-    end
+      puts "I don't know what you mean, try again"
   end
 end
 
@@ -46,21 +46,26 @@ def input_students
   end
   students
 end
+
 def print_header
   puts "The students of Villains Academy"
   puts "-------------"
 end
+
 def print(students)
   students.each do |student|
     puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
+
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
 
-students = input_students
+def show_students
+  print_header
+  print_students_list
+  print_footer
+end
+
 interactive_menu
-print_header
-print(students)
-print_footer(students)
