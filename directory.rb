@@ -1,5 +1,6 @@
 @students = []
 
+
 students = [
   {name: "Dr. Hannibal Lecter", cohort: :november},
   {name: "Darth Vader", cohort: :november},
@@ -20,7 +21,6 @@ def print_menu
   puts "2. Show all the students"
   puts "3. Save the list of students.csv"
   puts "4. Load the list from a file of your choice"
-  puts "5. Show students from April cohort"
   puts "9 Exit"
 end
 
@@ -86,14 +86,15 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
+    name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
+
 
 def show_students
   print_header
